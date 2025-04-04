@@ -18,8 +18,8 @@ public class User {
     @Column(name = "username", length = 50, nullable = false)
     private String username;
 
-    @Column(name = "isAdmin", nullable = false)
-    private Boolean isAdmin;
+    @Column(name = "is_admin", nullable = false, columnDefinition = "TINYINT(1)")
+    private boolean isAdmin;
 
     @Column(name = "password", length = 100, nullable = false)
     private String password;
@@ -28,7 +28,7 @@ public class User {
     public User() {
     }
 
-    public User(String username, Boolean isAdmin, String password) {
+    public User(String username, boolean isAdmin, String password) {
         this.username = username;
         this.isAdmin = isAdmin;
         this.password = password;
@@ -51,11 +51,11 @@ public class User {
         this.username = username;
     }
 
-    public Boolean getIsAdmin() {
+    public boolean isAdmin() {
         return isAdmin;
     }
 
-    public void setIsAdmin(Boolean isAdmin) {
+    public void setIsAdmin(boolean isAdmin) {
         this.isAdmin = isAdmin;
     }
 
