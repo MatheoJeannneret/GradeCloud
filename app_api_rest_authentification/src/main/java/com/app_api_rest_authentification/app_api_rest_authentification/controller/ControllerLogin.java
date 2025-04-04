@@ -9,8 +9,8 @@ import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
 @RequestMapping(path = "/user")
@@ -23,8 +23,10 @@ public class ControllerLogin {
         this.wrkLogin = wrkLogin;
     }
 
-    @GetMapping("/checkuser")
-    public ResponseEntity<String> checkUser(@RequestParam String username, @RequestParam String password) {
+    @PostMapping("/checkuser")
+    public ResponseEntity<String> checkUser(@RequestBody HashMap<String, String> credentials) {
+        String username = credentials.get("username");
+        String password = credentials.get("password");
         if (wrkLogin.checkUsername(username)) {
             if (wrkLogin.checkUser(username, password)) {
                 return ResponseEntity.ok("User correct");
@@ -35,8 +37,8 @@ public class ControllerLogin {
 
     }
 
-    @GetMapping("/isadmin")
-    public ResponseEntity<String> isAdmin(@RequestParam String username) {
+    @PostMapping("/isadmin")
+    public ResponseEntity<String> isAdmin(@RequestBody String username) {
         if (wrkLogin.checkUsername(username)) {
             if (wrkLogin.isUserAdmin(username)) {
                 return ResponseEntity.ok("User is admin");
@@ -47,8 +49,8 @@ public class ControllerLogin {
 
     }
 
-    @GetMapping("/getinfo")
-    public ResponseEntity<HashMap<String, String>> getInfos(@RequestParam String username) {
+    @PostMapping("/getinfo")
+    public ResponseEntity<HashMap<String, String>> getInfos(@RequestBody String username) {
         HashMap<String, String> infos = wrkLogin.getUserInfo(username);
         if (infos != null) {
             return ResponseEntity.ok(infos);
@@ -58,5 +60,4 @@ public class ControllerLogin {
             return ResponseEntity.badRequest().body(errorResponse);
         }
     }
-
 }
