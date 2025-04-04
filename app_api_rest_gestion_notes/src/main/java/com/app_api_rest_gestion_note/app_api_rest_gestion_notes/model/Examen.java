@@ -3,7 +3,6 @@ package com.app_api_rest_gestion_note.app_api_rest_gestion_notes.model;
 import jakarta.persistence.Column; 
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue; 
 
 import jakarta.persistence.GenerationType; 
