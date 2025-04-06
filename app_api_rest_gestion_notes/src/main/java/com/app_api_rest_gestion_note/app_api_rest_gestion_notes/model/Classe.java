@@ -11,7 +11,7 @@ public class Classe {
     @Column(name = "pk_classe")
     private Integer id;
 
-    @Column(name = "nom", length = 10, nullable = false)
+    @Column(name = "nom", length = 10, nullable = false, unique = true)
     private String nom;
 
     // Getters et Setters

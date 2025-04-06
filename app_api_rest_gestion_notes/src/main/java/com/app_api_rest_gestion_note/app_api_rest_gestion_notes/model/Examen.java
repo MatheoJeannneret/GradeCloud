@@ -40,6 +40,28 @@ public class Examen {
     @JoinColumn(name = "fk_classe", nullable = false)
     private Classe classe;
 
+    public Examen() {
+
+    }
+
+    public Examen( String description, LocalDateTime date, String nom, Branche branche, Classe classe) {
+        
+        this.description = description;
+        this.date = date;
+        this.nom = nom;
+        this.branche = branche;
+        this.classe = classe;
+    }
+
+    public Examen( Integer id, String description, LocalDateTime date, String nom, Branche branche, Classe classe) {
+        
+        this.description = description;
+        this.date = date;
+        this.nom = nom;
+        this.branche = branche;
+        this.classe = classe;
+    }
+
     // Getters et Setters
 
     public Integer getId() {
