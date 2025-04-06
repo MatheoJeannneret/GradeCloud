@@ -12,36 +12,10 @@ import java.util.*;
 @RestController
 //@RequestMapping("/gestionnotes")
 public class Controller {
-     // Handler pour GET 
+    
+     
+   
 
-     @GetMapping("/getExample") 
-
-     public String getExample(@RequestParam(value = "name", defaultValue = "World") String name) { 
-     
-     return String.format("Hello, %s!", name); 
-     
-     } 
-     
-     // Handler pour POST 
-     
-     @PostMapping("/postExample") 
-     
-     public String postExample(@RequestBody String body) { 
-     
-    return "Received POST request with body: " + body; 
-     
-     } 
-     
-     // Handler pour PUT 
-     
-     @PutMapping("/putExample") 
-     
-        public String putExample(@RequestBody String body) { 
-     
-     return "Received PUT request with body: " + body; 
-     
-     } 
-/* 
     @Autowired
     private WorkerService workerService;
 
@@ -85,5 +59,5 @@ public class Controller {
     @PutMapping("/updateexamen")
     public Examen updateExamen(@RequestParam Integer examenId, @RequestBody Examen updatedExamen) {
         return workerService.updateExamen(examenId, updatedExamen);
-    }*/
+    }
 }

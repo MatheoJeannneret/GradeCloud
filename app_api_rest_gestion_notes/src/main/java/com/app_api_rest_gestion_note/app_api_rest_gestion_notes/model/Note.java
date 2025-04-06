@@ -1,19 +1,20 @@
 package com.app_api_rest_gestion_note.app_api_rest_gestion_notes.model;
-
 import jakarta.persistence.*;
-
 
 @Entity
 @Table(name = "tr_eleve_examen")
-
 public class Note {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "pk_note")
+    private Integer id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "fk_examen", nullable = false)
     private Examen examen;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "fk_eleve", nullable = false)
     private Eleve eleve;
 
@@ -21,6 +22,15 @@ public class Note {
     private Double note;
 
     // Getters and Setters
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
     public Examen getExamen() {
         return examen;
     }
@@ -45,4 +55,3 @@ public class Note {
         this.note = note;
     }
 }
-

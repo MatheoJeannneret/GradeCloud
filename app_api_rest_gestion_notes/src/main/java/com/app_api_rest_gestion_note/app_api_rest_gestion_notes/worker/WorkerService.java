@@ -15,6 +15,7 @@ import jakarta.transaction.Transactional;
 
 import java.util.*;
 
+
 @Service
 public class WorkerService {
 
@@ -86,5 +87,6 @@ public class WorkerService {
         return examen;
 
     }
+    
 }
 

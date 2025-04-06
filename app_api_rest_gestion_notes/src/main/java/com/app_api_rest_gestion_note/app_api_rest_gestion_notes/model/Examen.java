@@ -31,11 +31,11 @@ public class Examen {
 
     @Column(name = "nom", length = 100, nullable = false)
     private String nom;
-
+   
     @ManyToOne
     @JoinColumn(name = "fk_branche", nullable = false)
     private Branche branche;
-
+ 
     @ManyToOne
     @JoinColumn(name = "fk_classe", nullable = false)
     private Classe classe;
@@ -89,4 +89,5 @@ public class Examen {
     public void setClasse(Classe classe) {
         this.classe = classe;
     }
+    
 }
