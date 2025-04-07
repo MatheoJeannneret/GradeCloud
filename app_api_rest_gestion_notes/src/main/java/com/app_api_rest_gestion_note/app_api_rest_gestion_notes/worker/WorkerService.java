@@ -91,6 +91,7 @@ public class WorkerService {
     }
 
     // 5. Modifier un examen
+    @Transactional
     public Examen updateExamen(Integer examenId, String nom, String description, LocalDateTime date, Integer brancheId, Integer classeId) {
         Optional<Examen> optionalExamen = examenRepository.findById(examenId);
     
