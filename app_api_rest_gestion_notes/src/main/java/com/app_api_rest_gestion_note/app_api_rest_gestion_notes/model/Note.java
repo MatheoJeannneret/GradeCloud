@@ -21,6 +21,12 @@ public class Note {
     @Column(name = "note")
     private Double note;
 
+    public Note(Examen examen, Eleve eleve, Double note){
+        this.examen = examen;
+        this.eleve = eleve;
+        this.note = note;
+    }
+
     // Getters and Setters
 
     public Integer getId() {

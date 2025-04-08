@@ -68,6 +68,7 @@ public class WorkerService {
         List<Examen> examens = examenRepository.findByClasseId(classe.getId());
         return examens;
     }
+    
 
     // 3. Créer un examen
     public Examen createExamen(String nom,  String description,  LocalDateTime date,  Integer brancheId,  Integer classeId) {
@@ -123,6 +124,29 @@ public class WorkerService {
         return (List<Branche>) brancheRepository.findAll();
 
     }
+
+    //8. get Eleves par Classe
+    public List<Eleve> getElevesByClasse(String classNom){
+        Classe classe = classeRepository.findByNom(classNom);
+        return eleveRepository.findByClasse(classe);
+    }
+
+    //9. create Note
     
+    public Note createNote(String username, Integer examenId, Double noteChiffre){
+        Eleve eleve = eleveRepository.findByUsername(username);
+        Optional<Examen> optExam = examenRepository.findById(examenId);
+        Note note = null;
+        if(optExam.isPresent() && examenRepository.existsById(examenId)){
+        note = new Note(optExam.get(), eleve, noteChiffre);
+            noteRepository.save(note);
+        }
+        
+        return note;
+        
+    } 
+
+    
+
 }
 
