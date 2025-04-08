@@ -4,6 +4,6 @@ import java.util.List;
 import org.springframework.data.repository.CrudRepository;
 
 
-public interface NoteRepository extends CrudRepository<Note, Integer>{    
+public interface NoteRepository extends CrudRepository<Note, Integer>{
     List<Note> findByEleveId(Integer eleveId);
 }
