@@ -20,6 +20,9 @@ public class Note {
 
     @Column(name = "note")
     private Double note;
+    
+    public Note(){
+    }
 
     public Note(Examen examen, Eleve eleve, Double note){
         this.examen = examen;
