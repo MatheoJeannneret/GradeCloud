@@ -15,8 +15,6 @@ import jakarta.servlet.http.HttpSession;
 
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-
 
 @RestController
 @RequestMapping(path = "/auth")
@@ -77,7 +75,6 @@ public class ControllerLogin {
 
     }
 
-    //faire le get infos
-    
+    // faire le get infos
 
 }
