@@ -176,4 +176,17 @@ public class Controller {
         }
     }
 
+    //10. getExamenByEleve
+    @GetMapping("/getexamenbyeleve")
+    public ResponseEntity<?> getExamenByEleve(@RequestParam String username){
+        List<Examen> examens = workerService.getExamenByEleve(username);
+        if (examens != null && !examens.isEmpty()) {
+            return ResponseEntity.ok(examens); // Retourne une réponse 200 OK avec la liste des élèves
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("Cet eleve n'existe pas ou n'a pas d'examen"); // Retourne 404 si aucun exmane n'a été
+                                                                              // trouvé
+        }
+    }
+
 }

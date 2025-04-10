@@ -173,4 +173,18 @@ public class WorkerService {
 
     }
 
+    //10. getExamenByEleve
+    public List<Examen> getExamenByEleve(String username){
+        Eleve eleve = eleveRepository.findByUsername(username);
+        
+        
+        List<Examen> examens = null;
+        if(eleve !=null){
+            Classe classe = eleve.getClasse();
+            examens = getExamensByClasse(classe.getNom());
+        }
+        return examens;
+
+    }
+
 }
