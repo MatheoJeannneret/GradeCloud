@@ -24,12 +24,13 @@ public class ControllerLogin {
     }
 
     @PostMapping("/checkuser")
-    public ResponseEntity<String> checkUser(@RequestBody HashMap<String, String> credentials) {
+    public ResponseEntity<?> checkUser(@RequestBody HashMap<String, String> credentials) {
         String username = credentials.get("username");
         String password = credentials.get("password");
         if (wrkLogin.checkUsername(username)) {
             if (wrkLogin.checkUserPwd(username, password)) {
-                return ResponseEntity.ok("User correct");
+                HashMap<String, String> infosUser = wrkLogin.getUserInfo(username);
+                return ResponseEntity.ok(infosUser);
             } else
                 return ResponseEntity.badRequest().body("User incorrect");
         } else
