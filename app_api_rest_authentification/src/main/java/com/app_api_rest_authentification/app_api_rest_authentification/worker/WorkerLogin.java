@@ -30,7 +30,7 @@ public class WorkerLogin {
     }
 
     @Transactional
-    public boolean checkUser(String username, String pwd) {
+    public boolean checkUserPwd(String username, String pwd) {
         User user = userRepository.findByUsername(username);
         if (user != null && user.getPassword().equals(pwd)) {
             return true;

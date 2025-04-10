@@ -28,7 +28,7 @@ public class ControllerLogin {
         String username = credentials.get("username");
         String password = credentials.get("password");
         if (wrkLogin.checkUsername(username)) {
-            if (wrkLogin.checkUser(username, password)) {
+            if (wrkLogin.checkUserPwd(username, password)) {
                 return ResponseEntity.ok("User correct");
             } else
                 return ResponseEntity.badRequest().body("User incorrect");
