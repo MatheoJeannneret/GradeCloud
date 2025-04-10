@@ -43,12 +43,19 @@ public class ControllerLogin {
         credentials.put("password", password);
 
         try {
-            ResponseEntity<String> response = restTemplate.postForEntity(urlApi, credentials, String.class);
+            HttpEntity<Map<String, String>> param = new HttpEntity<>(credentials);
+            ResponseEntity<HashMap<String, String>> response = restTemplate.exchange(
+                    urlApi,
+                    HttpMethod.POST,
+                    param,
+                    new ParameterizedTypeReference<HashMap<String, String>>() {
+                    });
 
             if (response.getStatusCode().is2xxSuccessful()) {
-                String responseBody = response.getBody();
-                if (responseBody != null && responseBody.contains("User correct")) {
-                    httpSession.setAttribute("username", username);
+                HashMap<String, String> responseBody = response.getBody();
+                if (responseBody != null) {
+                    httpSession.setAttribute("username", responseBody.get("username"));
+                    httpSession.setAttribute("isAdmin", responseBody.get("Admin"));
                     return ResponseEntity.ok("Connecté");
                 }
             }
