@@ -50,7 +50,7 @@ public class ControllerNote {
             @RequestParam String username) {
 
         try {
-            // 🔐 Vérification session
+            // Vérification session
             String sessionUser = (String) session.getAttribute("username");
             String isAdmin = (String) session.getAttribute("isAdmin");
 

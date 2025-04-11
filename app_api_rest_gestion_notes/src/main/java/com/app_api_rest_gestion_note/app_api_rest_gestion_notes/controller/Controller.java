@@ -153,8 +153,7 @@ public class Controller {
             return ResponseEntity.ok(eleves); // Retourne une réponse 200 OK avec la liste des élèves
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body("Aucun élève trouvé pour la classe : " + classNom); // Retourne 404 si aucun élève n'a été
-                                                                              // trouvé
+                    .body("Aucun élève trouvé pour la classe : " + classNom); // Retourne 404 si aucun élève n'a été trouvé
 
         }
     }

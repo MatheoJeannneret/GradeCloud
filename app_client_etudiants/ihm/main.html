@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestionnaire de Notes - Tableau de bord</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
+    <link rel="stylesheet" href="../style/style.css">
+</head>
+<body class="dashboard-page">
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                
+                GradeCloud
+            </a>
+            <div class="navbar-text text-white ms-auto">
+                <span id="welcomeMessage">Bienvenue </span>
+                <a href="index.html" class="btn btn-outline-light btn-sm ms-3">
+                    <i class="fas fa-sign-out-alt"></i> Déconnexion
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <div class="card shadow mb-4">
+            <div class="card-header bg-primary text-white">
+                <h4 class="mb-0">Mes Notes</h4>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-hover table-striped">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Branche</th>
+                                <th>Note 1</th>
+                                <th>Note 2</th>
+                                <th>Note 3</th>
+                                <th>Note 4</th>
+                                <th>Moyenne</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Mathématiques</td>
+                                <td>5.5</td>
+                                <td>4.8</td>
+                                <td>5.2</td>
+                                <td>6.0</td>
+                                <td class="fw-bold">5.4</td>
+                            </tr>
+                            <tr>
+                                <td>Français</td>
+                                <td>4.5</td>
+                                <td>5.0</td>
+                                <td>4.7</td>
+                                <td>5.3</td>
+                                <td class="fw-bold">4.9</td>
+                            </tr>
+                            <tr>
+                                <td>Sciences</td>
+                                <td>5.0</td>
+                                <td>5.2</td>
+                                <td>4.9</td>
+                                <td>5.5</td>
+                                <td class="fw-bold">5.2</td>
+                            </tr>
+                            <tr>
+                                <td>Histoire-Géographie</td>
+                                <td>4.8</td>
+                                <td>5.1</td>
+                                <td>5.3</td>
+                                <td>4.9</td>
+                                <td class="fw-bold">5.0</td>
+                            </tr>
+                            <tr>
+                                <td>Anglais</td>
+                                <td>5.2</td>
+                                <td>5.5</td>
+                                <td>5.0</td>
+                                <td>5.7</td>
+                                <td class="fw-bold">5.4</td>
+                            </tr>
+                            <tr>
+                                <td>Informatique</td>
+                                <td>5.8</td>
+                                <td>6.0</td>
+                                <td>5.7</td>
+                                <td>5.9</td>
+                                <td class="fw-bold">5.9</td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr class="table-primary">
+                                <td class="fw-bold">Moyenne générale</td>
+                                <td colspan="4"></td>
+                                <td class="fw-bold">5.3</td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="card shadow mb-4">
+            <div class="card-header bg-primary text-white">
+                <h4 class="mb-0">Calendrier des Évaluations</h4>
+            </div>
+            <div class="card-body">
+                <div id="calendar"></div>
+                <div class="calendar-events mt-3">
+                    <h6>Prochaines évaluations:</h6>
+                    <ul class="list-group">
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            8 Avril - Test de mathématiques
+                            <span class="badge bg-primary rounded-pill">Chapitre 5</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            16 Avril - Test de français
+                            <span class="badge bg-primary rounded-pill">Dissertation</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            22 Avril - Test de sciences
+                            <span class="badge bg-primary rounded-pill">Physique</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container text-center">
+            <p>&copy; 2025 Gestionnaire de Notes pour Élèves</p>
+        </div>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/locales/fr.global.min.js"></script>
+    <script>
+        // Récupérer et afficher le nom d'utilisateur
+        document.addEventListener('DOMContentLoaded', function() {
+            const username = localStorage.getItem('username') || 'Élève';
+            document.getElementById('welcomeMessage').textContent += username;
+            
+            // Initialisation du calendrier FullCalendar
+            const calendarEl = document.getElementById('calendar');
+            const calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'dayGridMonth',
+                locale: 'fr',
+                headerToolbar: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'dayGridMonth,timeGridWeek,listMonth'
+                },
+                buttonText: {
+                    today: 'Aujourd\'hui',
+                    month: 'Mois',
+                    week: 'Semaine',
+                    list: 'Liste'
+                },
+                events: [
+                    {
+                        title: 'Test de mathématiques',
+                        start: '2025-04-08',
+                        backgroundColor: '#1a3a6c',
+                        borderColor: '#1a3a6c',
+                        description: 'Chapitre 5'
+                    },
+                    {
+                        title: 'Test de français',
+                        start: '2025-04-16',
+                        backgroundColor: '#4c7fc9',
+                        borderColor: '#4c7fc9',
+                        description: 'Dissertation'
+                    },
+                    {
+                        title: 'Test de sciences',
+                        start: '2025-04-22',
+                        backgroundColor: '#28a745',
+                        borderColor: '#28a745',
+                        description: 'Physique'
+                    }
+                ],
+                eventDidMount: function(info) {
+                    if (info.event.extendedProps.description) {
+                        info.el.setAttribute('data-bs-toggle', 'tooltip');
+                        info.el.setAttribute('data-bs-placement', 'top');
+                        info.el.setAttribute('title', info.event.extendedProps.description);
+                    }
+                },
+                dayMaxEvents: true,
+                navLinks: true,
+                height: 'auto'
+            });
+            calendar.render();
+            
+            // Initialisation des tooltips Bootstrap
+            const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+            tooltipTriggerList.map(function (tooltipTriggerEl) {
+                return new bootstrap.Tooltip(tooltipTriggerEl);
+            });
+        });
+    </script>
+</body>
+</html>
