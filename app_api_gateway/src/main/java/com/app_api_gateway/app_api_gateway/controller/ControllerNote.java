@@ -25,16 +25,17 @@ import org.springframework.web.client.RestTemplate;
 
 import jakarta.servlet.http.HttpSession;
 
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.PutMapping;
 
 @RestController
 @RequestMapping(path = "/note")
 public class ControllerNote {
 
-    public final static String URL_API_BASE = "http://localhost:8082";
+    public final static String URL_API_BASE = "http://docker.darazsj.emf-informatique.ch:8080";
 
     private final RestTemplate restTemplate;
 
@@ -379,99 +380,98 @@ public class ControllerNote {
         }
     }
 
-    // @PostMapping("/updateexamen")
-    // public ResponseEntity<?> updateExamen(HttpSession session, @RequestParam
-    // Integer examenId,
-    // @RequestParam String nom,
-    // @RequestParam String description,
-    // @RequestParam LocalDateTime date,
-    // @RequestParam Integer brancheId,
-    // @RequestParam Integer classeId) {
-    // try {
-    // // 🔐 Vérification session
-    // String sessionUser = (String) session.getAttribute("username");
-    // String isAdmin = (String) session.getAttribute("isAdmin");
+    @PutMapping("/updateexamen")
+    public ResponseEntity<?> updateExamen(HttpSession session, @RequestParam Integer examenId,
+            @RequestParam String nom,
+            @RequestParam String description,
+            @RequestParam LocalDateTime date,
+            @RequestParam Integer brancheId,
+            @RequestParam Integer classeId) {
+        try {
+            // 🔐 Vérification session
+            String sessionUser = (String) session.getAttribute("username");
+            String isAdmin = (String) session.getAttribute("isAdmin");
 
-    // if (sessionUser == null || isAdmin == null || !"true".equals(isAdmin)) {
-    // return ResponseEntity.status(HttpStatus.FORBIDDEN)
-    // .body(Map.of("error", "Pas connecté ou pas les droits"));
-    // }
+            if (sessionUser == null || isAdmin == null || !"true".equals(isAdmin)) {
+                return ResponseEntity.status(HttpStatus.FORBIDDEN)
+                        .body(Map.of("error", "Pas connecté ou pas les droits"));
+            }
 
-    // MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
-    // params.add("examenId", String.valueOf(examenId));
-    // params.add("nom", nom);
-    // params.add("description", description);
-    // params.add("date", date.toString()); // Format ISO-8601
-    // params.add("brancheId", brancheId.toString());
-    // params.add("classeId", classeId.toString());
+            MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
+            params.add("examenId", String.valueOf(examenId));
+            params.add("nom", nom);
+            params.add("description", description);
+            params.add("date", date.toString()); // Format ISO-8601
+            params.add("brancheId", String.valueOf(brancheId));
+            params.add("classeId", String.valueOf(classeId));
 
-    // HttpHeaders headers = new HttpHeaders();
-    // headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
 
-    // HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(params,
-    // headers);
-    // ResponseEntity<Object> response = restTemplate.postForEntity(URL_API_BASE +
-    // "/updateexamen", request,
-    // Object.class);
+            HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(params,
+                    headers);
+            // 📡 Envoi via PUT
+            ResponseEntity<Object> response = restTemplate.exchange(
+                    URL_API_BASE + "/updateexamen",
+                    HttpMethod.PUT,
+                    request,
+                    Object.class);
 
-    // // ✅ Retour si OK
-    // if (response.getStatusCode().is2xxSuccessful() && response.getBody() != null)
-    // {
-    // return ResponseEntity.ok(response.getBody());
-    // } else {
-    // return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-    // .body(Map.of("error", "Erreur lors de la création"));
-    // }
+            // ✅ Retour si OK
+            if (response.getStatusCode().is2xxSuccessful() && response.getBody() != null) {
+                return ResponseEntity.ok(response.getBody());
+            } else {
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                        .body(Map.of("error", "Erreur lors de la création"));
+            }
 
-    // } catch (HttpClientErrorException e) {
-    // return ResponseEntity.status(e.getStatusCode())
-    // .body(Map.of("error", e.getStatusCode().toString(), "message",
-    // e.getResponseBodyAsString()));
-    // } catch (Exception e) {
-    // return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-    // .body(Map.of("error", "Exception inconnue", "message", e.getMessage()));
-    // }
-    // }
+        } catch (HttpClientErrorException e) {
+            return ResponseEntity.status(e.getStatusCode())
+                    .body(Map.of("error", e.getStatusCode().toString(), "message",
+                            e.getResponseBodyAsString()));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(Map.of("error", "Exception inconnue", "message", e.getMessage()));
+        }
+    }
 
-    // @DeleteMapping("/deleteexamen")
-    // public ResponseEntity<?> deleteExamen(HttpSession session, @RequestParam
-    // Integer examenId) {
-    // try {
-    // // 🔐 Vérification de la session
-    // String sessionUser = (String) session.getAttribute("username");
-    // String isAdmin = (String) session.getAttribute("isAdmin");
+    @DeleteMapping("/deleteexamen")
+    public ResponseEntity<?> deleteExamen(HttpSession session, @RequestParam Integer examenId) {
+        try {
+            // 🔐 Vérification de la session
+            String sessionUser = (String) session.getAttribute("username");
+            String isAdmin = (String) session.getAttribute("isAdmin");
 
-    // if (sessionUser == null || isAdmin == null || !"true".equals(isAdmin)) {
-    // return ResponseEntity.status(HttpStatus.FORBIDDEN)
-    // .body(Map.of("error", "Pas connecté ou pas les droits"));
-    // }
+            if (sessionUser == null || isAdmin == null || !"true".equals(isAdmin)) {
+                return ResponseEntity.status(HttpStatus.FORBIDDEN)
+                        .body(Map.of("error", "Pas connecté ou pas les droits"));
+            }
 
-    // String fullUrl = URL_API_BASE + "/deleteexamen?examenId=" + examenId;
+            String fullUrl = URL_API_BASE + "/deleteexamen?examenId=" + examenId;
 
-    // // On attend un retour Map<String, String> (comme dans la réponse du serveur)
-    // ResponseEntity<Map<String, String>> response = restTemplate.exchange(
-    // fullUrl,
-    // HttpMethod.DELETE,
-    // null,
-    // new ParameterizedTypeReference<>() {
-    // });
+            ResponseEntity<Object> response = restTemplate.exchange(
+                    fullUrl,
+                    HttpMethod.DELETE,
+                    null,
+                    new ParameterizedTypeReference<>() {
+                    });
 
-    // if (response.getStatusCode().is2xxSuccessful()) {
-    // return ResponseEntity.ok(response.getBody()); // Renvoie le message de succès
-    // } else {
-    // return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-    // .body(Map.of("error", "Erreur lors de la suppression"));
-    // }
+            if (response.getStatusCode().is2xxSuccessful()) {
+                return ResponseEntity.ok(response.getBody()); // Renvoie le message de succès
+            } else {
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                        .body(Map.of("error", "Erreur lors de la suppression"));
+            }
 
-    // } catch (HttpClientErrorException e) {
-    // return ResponseEntity.status(e.getStatusCode())
-    // .body(Map.of("error", "Erreur HTTP", "status", e.getStatusCode().toString(),
-    // "message",
-    // e.getResponseBodyAsString()));
-    // } catch (Exception e) {
-    // return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-    // .body(Map.of("error", "Exception inconnue", "message", e.getMessage()));
-    // }
-    // }
+        } catch (HttpClientErrorException e) {
+            return ResponseEntity.status(e.getStatusCode())
+                    .body(Map.of("error", "Erreur HTTP", "status", e.getStatusCode().toString(),
+                            "message",
+                            e.getResponseBodyAsString()));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(Map.of("error", "Exception inconnue", "message", e.getMessage()));
+        }
+    }
 
 }
