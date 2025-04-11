@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+  <div class="container">
+    <a class="navbar-brand" href="#">GradeCloud</a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarNav"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav me-auto">
+        <li class="nav-item">
+          <a class="nav-link active" href="#classes-view">Mes Classes</a>
+        </li>
+      </ul>
+      <div class="d-flex">
+        <span class="navbar-text me-3">
+          <i class="fas fa-user me-1"></i> Prof. Dupont
+        </span>
+        <button
+          class="btn btn-sm btn-outline-light"
+          onclick="window.location.href='login.html';"
+        >
+          <i class="fas fa-sign-out-alt me-1"></i> Déconnexion
+        </button>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- Vues de l'application -->
+<div class="container mt-4">
+  <!-- Vue des classes -->
+  <div id="classes-view">
+    <h2 class="mb-4">Mes Classes</h2>
+    <div class="row row-cols-1 row-cols-md-3 g-4 mb-4">
+      <div class="col">
+        <div class="card h-100 class-card" onclick="showClass('1A')">
+          <div class="card-body">
+            <h5 class="card-title">Classe 1A</h5>
+            <p class="card-text">1ère année - Section Sciences</p>
+          </div>
+          <div class="card-footer">
+            <small class="text-muted">25 élèves</small>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="card h-100 class-card" onclick="showClass('2B')">
+          <div class="card-body">
+            <h5 class="card-title">Classe 2B</h5>
+            <p class="card-text">2ème année - Section Mathématiques</p>
+          </div>
+          <div class="card-footer">
+            <small class="text-muted">22 élèves</small>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="card h-100 class-card" onclick="showClass('3C')">
+          <div class="card-body">
+            <h5 class="card-title">Classe 3C</h5>
+            <p class="card-text">3ème année - Section Langues</p>
+          </div>
+          <div class="card-footer">
+            <small class="text-muted">20 élèves</small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Vue d'une classe avec calendrier et examens -->
+  <div id="class-view" style="display: none">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <div>
+        <button class="btn btn-outline-secondary" onclick="backToClasses()">
+          <i class="fas fa-arrow-left me-1"></i> Retour aux classes
+        </button>
+      </div>
+      <h2 id="class-title">Classe</h2>
+      <div>
+        <button class="btn btn-success" onclick="addExam()">
+          <i class="fas fa-plus me-1"></i> Nouvel Examen
+        </button>
+      </div>
+    </div>
+
+    <!-- Calendrier -->
+    <div class="card mb-4">
+      <div class="card-header bg-light">
+        <div class="d-flex justify-content-between align-items-center">
+          <button class="btn btn-sm btn-outline-secondary" id="prev-month">
+            <i class="fas fa-chevron-left"></i>
+          </button>
+          <h5 class="mb-0" id="calendar-title">Avril 2025</h5>
+          <button class="btn btn-sm btn-outline-secondary" id="next-month">
+            <i class="fas fa-chevron-right"></i>
+          </button>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="calendar-container">
+          <div class="calendar-header">
+            <div>Lun</div>
+            <div>Mar</div>
+            <div>Mer</div>
+            <div>Jeu</div>
+            <div>Ven</div>
+            <div>Sam</div>
+            <div>Dim</div>
+          </div>
+          <div id="calendar-grid" class="calendar-grid">
+            <!-- Les jours du calendrier sont générés par JavaScript -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Liste des examens du jour sélectionné -->
+    <div id="exams-container">
+      <h4 id="exams-date" class="mb-3">Examens du 15 Avril 2025</h4>
+      <div class="list-group">
+        <a
+          href="#"
+          class="list-group-item list-group-item-action"
+          onclick="showExamDetails('exam1')"
+        >
+          <div class="d-flex w-100 justify-content-between">
+            <h5 class="mb-1">Contrôle de Mathématiques</h5>
+            <span class="badge bg-primary rounded-pill">Mathématiques</span>
+          </div>
+          <p class="mb-1">Équations du second degré et fonctions associées</p>
+          <small>15 Avril 2025, 10:00</small>
+        </a>
+        <a
+          href="#"
+          class="list-group-item list-group-item-action"
+          onclick="showExamDetails('exam2')"
+        >
+          <div class="d-flex w-100 justify-content-between">
+            <h5 class="mb-1">Test de Vocabulaire</h5>
+            <span class="badge bg-success rounded-pill">Français</span>
+          </div>
+          <p class="mb-1">Vocabulaire chapitre 5-7</p>
+          <small>15 Avril 2025, 14:00</small>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Vue des détails d'un examen -->
+  <div id="exam-details-view" style="display: none">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <div>
+        <button class="btn btn-outline-secondary" onclick="backToClass()">
+          <i class="fas fa-arrow-left me-1"></i> Retour à la classe
+        </button>
+      </div>
+      <h2 id="exam-title">Détails de l'examen</h2>
+      <div class="btn-group">
+        <button class="btn btn-warning" onclick="editExam()">
+          <i class="fas fa-edit me-1"></i> Modifier
+        </button>
+        <button class="btn btn-danger" onclick="deleteExam()">
+          <i class="fas fa-trash me-1"></i> Supprimer
+        </button>
+      </div>
+    </div>
+
+    <div class="card mb-4">
+      <div class="card-header">
+        <h5 class="mb-0">Informations</h5>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-6">
+            <p>
+              <strong>Nom:</strong>
+              <span id="exam-name">Contrôle de Mathématiques</span>
+            </p>
+            <p>
+              <strong>Date:</strong> <span id="exam-date">15 Avril 2025</span>
+            </p>
+            <p><strong>Heure:</strong> <span id="exam-time">10:00</span></p>
+          </div>
+          <div class="col-md-6">
+            <p>
+              <strong>Matière:</strong>
+              <span id="exam-subject">Mathématiques</span>
+            </p>
+            <p>
+              <strong>Coefficient:</strong> <span id="exam-coefficient">2</span>
+            </p>
+          </div>
+        </div>
+        <div class="row mt-2">
+          <div class="col-12">
+            <p><strong>Description:</strong></p>
+            <p id="exam-description">
+              Équations du second degré et fonctions associées. Les élèves
+              doivent apporter leur calculatrice.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div
+        class="card-header d-flex justify-content-between align-items-center"
+      >
+        <h5 class="mb-0">Notes des élèves</h5>
+        <button class="btn btn-primary" onclick="correctExam()">
+          <i class="fas fa-check me-1"></i> Corriger
+        </button>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th>Nom</th>
+                <th>Prénom</th>
+                <th>Note</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Dubois</td>
+                <td>Marie</td>
+                <td>17/20</td>
+                <td>
+                  <button class="btn btn-sm btn-outline-primary">
+                    <i class="fas fa-edit"></i>
+                  </button>
+                </td>
+              </tr>
+              <tr>
+                <td>Martin</td>
+                <td>Thomas</td>
+                <td>15/20</td>
+                <td>
+                  <button class="btn btn-sm btn-outline-primary">
+                    <i class="fas fa-edit"></i>
+                  </button>
+                </td>
+              </tr>
+              <tr>
+                <td>Petit</td>
+                <td>Julie</td>
+                <td>19/20</td>
+                <td>
+                  <button class="btn btn-sm btn-outline-primary">
+                    <i class="fas fa-edit"></i>
+                  </button>
+                </td>
+              </tr>
+              <tr>
+                <td>Leroy</td>
+                <td>Antoine</td>
+                <td>13/20</td>
+                <td>
+                  <button class="btn btn-sm btn-outline-primary">
+                    <i class="fas fa-edit"></i>
+                  </button>
+                </td>
+              </tr>
+              <tr>
+                <td>Moreau</td>
+                <td>Emma</td>
+                <td>16/20</td>
+                <td>
+                  <button class="btn btn-sm btn-outline-primary">
+                    <i class="fas fa-edit"></i>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
