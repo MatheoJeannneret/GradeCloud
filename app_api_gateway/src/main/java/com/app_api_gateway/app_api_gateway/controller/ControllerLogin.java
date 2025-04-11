@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 @RequestMapping(path = "/auth")
 public class ControllerLogin {
 
-    public final static String URL_API_BASE = "http://localhost:8081/user";
+    public final static String URL_API_BASE = "http://apiauth:8080/user";
 
     private final RestTemplate restTemplate;
 

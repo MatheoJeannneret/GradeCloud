@@ -35,7 +35,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 @RequestMapping(path = "/note")
 public class ControllerNote {
 
-    public final static String URL_API_BASE = "http://docker.darazsj.emf-informatique.ch:8080";
+    public final static String URL_API_BASE = "http://apigestionnote:8080";
 
     private final RestTemplate restTemplate;
 
