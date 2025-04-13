@@ -1,9 +1,8 @@
-var BASE_URL_NOTE = "http://docker.darazsj.emf-informatique.ch:8080/note";
-var BASE_URL_AUTH = "http://docker.darazsj.emf-informatique.ch:8080/auth";
+var BASE_URL_NOTE = "https://133.darazsj.emf-informatique.ch/note";
+var BASE_URL_AUTH = "https://133.darazsj.emf-informatique.ch/auth";
  
-class HttpService {
-  constructor() {}
- 
+
+ /*
   centraliserErreurHttp(httpErrorCallbackFn) {
     $.ajaxSetup({
       error: function (xhr, exception) {
@@ -31,12 +30,13 @@ class HttpService {
       },
     });
   }
- 
-  connect(username, password, successCallback) {
+ */
+  function connect(username, password, successCallback, errorCallback) {
     $.ajax({
       type: "POST",
       dataType: "json",
       url: BASE_URL_AUTH + "/login",
+      contentType: "application/x-www-form-urlencoded", 
       data: {
         username: username,
         password: password,
@@ -45,10 +45,11 @@ class HttpService {
         withCredentials: true,
       },
       success: successCallback,
+      error: errorCallback
     });
   }
  
-  disconnect(successCallback) {
+  function disconnect(successCallback) {
     $.ajax({
       type: "POST",
       dataType: "json",
@@ -60,7 +61,7 @@ class HttpService {
     });
   }
  
-  isAdmin(username, successCallback) {
+  function isAdmin(username, successCallback) {
     $.ajax({
       type: "POST",
       dataType: "json",
@@ -72,4 +73,3 @@ class HttpService {
       success: successCallback,
     });
   }
-}

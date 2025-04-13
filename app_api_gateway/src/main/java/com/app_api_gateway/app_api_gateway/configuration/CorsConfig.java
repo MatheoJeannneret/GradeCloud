@@ -16,8 +16,7 @@ public class CorsConfig implements WebMvcConfigurer {
                 // Autorise les requêtes provenant de http://localhost:5500
                 // → à adapter selon le domaine de ton frontend (en prod par ex :
                 // https://nom.emf-informatique.ch)
-                .allowedOrigins("https://darazsj.emf-informatique.ch")
-                .allowedOrigins("https://jeanneretmX.emf-informatique.ch")
+                .allowedOrigins("https://darazsj.emf-informatique.ch","https://jeanneretm.emf-informatique.ch")
                 // Autorise uniquement ces méthodes HTTP dans les requêtes cross-origin
                 .allowedMethods("GET", "POST", "PUT", "DELETE")
                 // Autorise l'envoi de cookies et d'en-têtes d'authentification (ex:
