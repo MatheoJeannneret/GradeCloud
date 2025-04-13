@@ -1,13 +1,11 @@
 function connectSuccess(data, text, jqXHR) {
-    console.log($(data).find("result").text())
+    
     if (jqXHR.status === 200) {
 
         
         // Stocker l'état de connexion dans sessionStorage
         sessionStorage.setItem("isConnected", "1");
-        if($(data).find("result").text()==='admin'){
-            sessionStorage.setItem("isAdmin", "1");
-        }
+        
         alert("Vous êtes connectés avec succès !");
         // Rediriger vers la page des produits
         window.location.href = "../ihm/main.html";
@@ -15,7 +13,6 @@ function connectSuccess(data, text, jqXHR) {
     }
     
 }
-
 
 function CallbackError(request, status, error) {
     if (request.status === 401) {
@@ -48,7 +45,6 @@ async function hashPassword(password) {
         const password = document.getElementById("password").value;
 
         const hashedPassword = await hashPassword(password); // ATTEND le hash correctement
-        console.log("Mot de passe hashé :", hashedPassword);
 
         connect(username, hashedPassword, connectSuccess, CallbackError);
     });
