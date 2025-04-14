@@ -1,5 +1,6 @@
 $(document).ready(function () {
     const username = sessionStorage.getItem("username");
+    document.getElementById("welcomeMessage").textContent += username;
     const serviceHttp = new ServiceHttp();
     if (username) {
         const ctrlMain = new MainCtrl(username, serviceHttp);
@@ -30,19 +31,19 @@ class MainCtrl {
         // Appels directs aux méthodes de serviceHttp
         serviceHttp.getExamenByEleve(
             username,
-            this.chargerCalendrier,
-            this.CallbackError
+            this.chargerCalendrier.bind(this),
+            this.CallbackError.bind(this)
         );
         serviceHttp.getNoteByEleve(
             username,
-            this.chargerTableauNote,
-            this.CallbackError
+            this.chargerTableauNote.bind(this),
+            this.CallbackError.bind(this)
         );
     }
 
  chargerCalendrier(data) {
     const calendarEl = document.getElementById('calendar');
-    const events = genererEvenementsExamen(data);
+    const events = this.genererEvenementsExamen(data);
 
     const calendar = new FullCalendar.Calendar(calendarEl, {
         initialView: 'dayGridMonth',
@@ -97,7 +98,7 @@ class MainCtrl {
     const tableau = document.getElementById("tableauNote");
     tableau.innerHTML = ""; // Reset du tableau si déjà rempli
 
-    const maxNote = getMaxNote(data);
+    const maxNote = this.getMaxNote(data);
 
     // Création de l'en-tête
     const thead = document.createElement("thead");

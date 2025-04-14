@@ -2,10 +2,8 @@ $(document).ready(function () {
     const loginCtrl = new LoginCtrl();
     const serviceHttp = new ServiceHttp();
     var butConnect = $("#btnConnect");
-
     butConnect.click(async function (event) {
         event.preventDefault();
-
         const username = document.getElementById("username").value;
         const password = document.getElementById("password").value;
         sessionStorage.setItem("username", username);
