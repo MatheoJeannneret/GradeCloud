@@ -35,7 +35,7 @@ class HttpService {
   connect(username, password, successCallback) {
     $.ajax({
       type: "POST",
-      dataType: "json",
+      dataType: "text",
       url: BASE_URL_AUTH + "/login",
       data: {
         username: username,
@@ -51,7 +51,7 @@ class HttpService {
   disconnect(successCallback) {
     $.ajax({
       type: "POST",
-      dataType: "json",
+      dataType: "text",
       url: BASE_URL_AUTH + "/logout",
       xhrFields: {
         withCredentials: true,
@@ -63,7 +63,7 @@ class HttpService {
   isAdmin(username, successCallback) {
     $.ajax({
       type: "POST",
-      dataType: "json",
+      dataType: "text",
       url: BASE_URL_AUTH + "/isadmin",
       data: { username: username },
       xhrFields: {
