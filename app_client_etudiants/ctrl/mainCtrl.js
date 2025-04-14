@@ -1,11 +1,46 @@
-function chargerCalendrier(data) {
-    // <script>
-    // Récupérer et afficher le nom d'utilisateur
-    //  document.addEventListener('DOMContentLoaded', function() {
-    // const username = localStorage.getItem('username') || 'Élève';
-    // document.getElementById('welcomeMessage').textContent += username;
+$(document).ready(function () {
+    const username = sessionStorage.getItem("username");
+    const serviceHttp = new ServiceHttp();
+    if (username) {
+        const ctrlMain = new MainCtrl(username, serviceHttp);
+    } else {
+        alert("Utilisateur non connecté !");
+        window.location.href = "../ihm/login.html";
+    }
 
-    // Initialisation du calendrier FullCalendar
+    var butDisconnect = $("#btnDisconnect");
+    
+        butDisconnect.click(async function (event) {
+            event.preventDefault();
+            const confirmation = confirm("Voulez-vous vraiment vous déconnecter ?");
+            if (confirmation) {
+                serviceHttp.disconnect(
+                    () => {
+                        alert("Vous êtes deconnecté avec succès");
+                        sessionStorage.clear();
+                        window.location.href = "../ihm/login.html";
+                    },
+                    () => alert("Une erreur est survenue lors de la déconnexion")
+                );
+            }
+        });
+});
+class MainCtrl {
+    constructor(username, serviceHttp) {
+        // Appels directs aux méthodes de serviceHttp
+        serviceHttp.getExamenByEleve(
+            username,
+            this.chargerCalendrier,
+            this.CallbackError
+        );
+        serviceHttp.getNoteByEleve(
+            username,
+            this.chargerTableauNote,
+            this.CallbackError
+        );
+    }
+
+ chargerCalendrier(data) {
     const calendarEl = document.getElementById('calendar');
     const events = genererEvenementsExamen(data);
 
@@ -48,7 +83,7 @@ function chargerCalendrier(data) {
     });
 }
 //créer evenement sur calendrier 
-function genererEvenementsExamen(data) {
+ genererEvenementsExamen(data) {
     return data.map(examen => ({
         title: examen.nom,
         start: examen.date,
@@ -58,7 +93,7 @@ function genererEvenementsExamen(data) {
     }));
 }
 
-function chargerTableauNote(data) {
+ chargerTableauNote(data) {
     const tableau = document.getElementById("tableauNote");
     tableau.innerHTML = ""; // Reset du tableau si déjà rempli
 
@@ -150,10 +185,7 @@ function chargerTableauNote(data) {
     tableau.appendChild(tbody);
 }
 
-
-
-
-function getMaxNote(data) {
+ getMaxNote(data) {
     let maxNote = 0;
     for (let item of data) {
         if (item.notes.length > maxNote) {
@@ -163,7 +195,7 @@ function getMaxNote(data) {
     return maxNote;
 }
 
-function CallbackError(request, status, error) {
+ CallbackError(request, status, error) {
     if (request.status === 401) {
         alert("Le mot de passe est incorrect");
 
@@ -178,28 +210,7 @@ function CallbackError(request, status, error) {
 }
 
 
-$(document).ready(function () {
-    // Affichage du nom de l'utilisateur
-    // const username = localStorage.getItem('username') || 'Élève';
-    //document.getElementById('welcomeMessage').textContent += username;
 
-    //listener deconnexion
-    var butDisconnect = $("#btnDisconnect");
-        butDisconnect.click(async function (event) {
-            event.preventDefault();
-            const confirmation = confirm("Voulez-vous vraiment vous déconnecter ?");
-            if (confirmation) {
-                disconnect(
-                    () => {
-                        alert("Vous êtes deconnecté avec succès");
-                        window.location.href = "../ihm/login.html";
-                    },
-                    () => alert("Une erreur est survenue lors de la déconnexion")
-                );
-            }
-        });
 
-        getExamenByEleve('Curty', chargerCalendrier, CallbackError);
-        getNoteByEleve('Curty', chargerTableauNote, CallbackError);
 
-});
+}

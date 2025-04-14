@@ -2,7 +2,9 @@ var BASE_URL_NOTE = "https://133.darazsj.emf-informatique.ch/note";
 var BASE_URL_AUTH = "https://133.darazsj.emf-informatique.ch/auth";
  
 
-  function connect(username, password, successCallback, errorCallback) {
+class ServiceHttp{
+
+   connect(username, password, successCallback, errorCallback) {
     $.ajax({
       type: "POST",
       dataType: "text",
@@ -19,7 +21,7 @@ var BASE_URL_AUTH = "https://133.darazsj.emf-informatique.ch/auth";
     });
   }
  
-  function disconnect(successCallback, errorCallback) {
+   disconnect(successCallback, errorCallback) {
     $.ajax({
       type: "POST",
       dataType: "text",
@@ -31,7 +33,7 @@ var BASE_URL_AUTH = "https://133.darazsj.emf-informatique.ch/auth";
     });
   }
 
-  function getNoteByEleve(username, successCallback, errorCallback) {
+   getNoteByEleve(username, successCallback, errorCallback) {
     $.ajax({
       type: "GET",
       dataType: "json",
@@ -47,7 +49,7 @@ var BASE_URL_AUTH = "https://133.darazsj.emf-informatique.ch/auth";
     });
   }
 
-  function getExamenByEleve(username, successCallback, errorCallback) {
+   getExamenByEleve(username, successCallback, errorCallback) {
     $.ajax({
       type: "GET",
       dataType: "json",
@@ -61,4 +63,6 @@ var BASE_URL_AUTH = "https://133.darazsj.emf-informatique.ch/auth";
       success: successCallback,
       error: errorCallback
     });
+}
+
 }
