@@ -1,20 +1,3 @@
-<<<<<<< HEAD
-$(document).ready(function () {
-    const loginCtrl = new LoginCtrl();
-    const serviceHttp = new ServiceHttp();
-    var butConnect = $("#btnConnect");
-
-    butConnect.click(async function (event) {
-        event.preventDefault();
-
-        const username = document.getElementById("username").value;
-        const password = document.getElementById("password").value;
-        sessionStorage.setItem("username", username);
-        const hashedPassword = await loginCtrl.hashPassword(password); // ATTEND le hash correctement
-
-        serviceHttp.connect(username, hashedPassword, loginCtrl.connectSuccess, loginCtrl.CallbackError);
-    });
-=======
 function connectSuccess(data, text, jqXHR) {
   if (jqXHR.status === 200) {
     // Stocker l'état de connexion dans sessionStorage
@@ -67,7 +50,6 @@ $(document).ready(function () {
 
     connect(username, hashedPassword, connectSuccess, CallbackError);
   });
->>>>>>> 73e933a3f8d06d303eeb4e26a97aae8c00dc88a8
 });
 
 class LoginCtrl {
