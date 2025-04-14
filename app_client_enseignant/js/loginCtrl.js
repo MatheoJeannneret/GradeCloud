@@ -5,12 +5,15 @@ class LoginCtrl {
     this.initEvents();
   }
 
-  connectSuccess(data, text, jqXHR) {
-    sessionStorage.setItem("isConnected", "1");
+  connectSuccess(username, data, text, jqXHR) {
+    if (jqXHR.status === 200) {
+      sessionStorage.setItem("isConnected", "1");
+      sessionStorage.setItem("username", username);
 
-    alert("Connexion avec succès !");
+      alert("Connexion avec succès !");
 
-    IndexCtrl.loadIfConnected();
+      indexCtrl.loadIfConnected();
+    }
   }
 
   initEvents() {
@@ -26,11 +29,9 @@ class LoginCtrl {
     const hashedPassword = await this.hashPassword(password);
 
     this.http.isAdmin(username, (res) => {
-      this.http.connect(
-        username,
-        hashedPassword,
-        this.connectSuccess.bind(this)
-      );
+      this.http.connect(username, hashedPassword, (data, text, jqXHR) => {
+        this.connectSuccess(username, data, text, jqXHR);
+      });
     });
   }
 
