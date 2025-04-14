@@ -1,36 +1,18 @@
 <!DOCTYPE html>
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-  <div class="container">
-    <a class="navbar-brand" href="#">GradeCloud</a>
-    <button
-      class="navbar-toggler"
-      type="button"
-      data-bs-toggle="collapse"
-      data-bs-target="#navbarNav"
-    >
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav me-auto">
-        <li class="nav-item">
-          <a class="nav-link active" href="#classes-view">Mes Classes</a>
-        </li>
-      </ul>
-      <div class="d-flex">
-        <span class="navbar-text me-3">
-          <i class="fas fa-user me-1"></i> Prof. Dupont
-        </span>
-        <button
-          class="btn btn-sm btn-outline-light"
-          onclick="window.location.href='login.html';"
-        >
-          <i class="fas fa-sign-out-alt me-1"></i> Déconnexion
-        </button>
-      </div>
+<!--bar de nav-->
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-auto me-auto">
+      <h1>GradeCloud</h1>
+    </div>
+    <div class="col-auto">
+      <button class="btn btn-sm btn-outline-dark mt-2" onclick="">
+        <i class="fas fa-sign-out-alt me-1"></i> Déonnexion
+      </button>
     </div>
   </div>
-</nav>
+</div>
 
 <!-- Vues de l'application -->
 <div class="container mt-4">
@@ -184,7 +166,8 @@
               <span id="exam-name">Contrôle de Mathématiques</span>
             </p>
             <p>
-              <strong>Date:</strong> <span id="exam-date">15 Avril 2025</span>
+              <strong>Date:</strong>
+              <span id="exam-date">15 Avril 2025</span>
             </p>
             <p><strong>Heure:</strong> <span id="exam-time">10:00</span></p>
           </div>
@@ -194,7 +177,8 @@
               <span id="exam-subject">Mathématiques</span>
             </p>
             <p>
-              <strong>Coefficient:</strong> <span id="exam-coefficient">2</span>
+              <strong>Coefficient:</strong>
+              <span id="exam-coefficient">2</span>
             </p>
           </div>
         </div>
