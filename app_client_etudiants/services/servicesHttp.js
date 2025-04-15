@@ -2,7 +2,7 @@ var BASE_URL_NOTE = "https://133.darazsj.emf-informatique.ch/note";
 var BASE_URL_AUTH = "https://133.darazsj.emf-informatique.ch/auth";
  
 
-class ServiceHttp{
+class ServicesHttp{
 
    connect(username, password, successCallback, errorCallback) {
     $.ajax({

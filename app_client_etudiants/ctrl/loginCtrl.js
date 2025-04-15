@@ -1,6 +1,6 @@
 $(document).ready(function () {
     const loginCtrl = new LoginCtrl();
-    const serviceHttp = new ServiceHttp();
+    const serviceHttp = new ServicesHttp();
     var butConnect = $("#btnConnect");
     butConnect.click(async function (event) {
         event.preventDefault();

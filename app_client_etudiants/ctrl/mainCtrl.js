@@ -1,7 +1,7 @@
 $(document).ready(function () {
     const username = sessionStorage.getItem("username");
     document.getElementById("welcomeMessage").textContent += username;
-    const serviceHttp = new ServiceHttp();
+    const serviceHttp = new ServicesHttp();
     if (username) {
         const ctrlMain = new MainCtrl(username, serviceHttp);
     } else {
