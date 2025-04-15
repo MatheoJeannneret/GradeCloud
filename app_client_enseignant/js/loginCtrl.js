@@ -1,11 +1,10 @@
 class LoginCtrl {
-  constructor(httpService) {
-    this.http = httpService;
+  constructor() {
     this.btnConnect = $("#connect");
     this.initEvents();
   }
 
-  connectSuccess(username, data, text, jqXHR) {
+  connectSuccess(usernamxe, data, text, jqXHR) {
     if (jqXHR.status === 200) {
       sessionStorage.setItem("isConnected", "1");
       sessionStorage.setItem("username", username);
@@ -28,8 +27,8 @@ class LoginCtrl {
 
     const hashedPassword = await this.hashPassword(password);
 
-    this.http.isAdmin(username, (res) => {
-      this.http.connect(username, hashedPassword, (data, text, jqXHR) => {
+    http.isAdmin(username, (res) => {
+      http.connect(username, hashedPassword, (data, text, jqXHR) => {
         this.connectSuccess(username, data, text, jqXHR);
       });
     });

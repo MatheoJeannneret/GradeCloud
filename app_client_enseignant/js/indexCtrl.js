@@ -1,14 +1,17 @@
 $(document).ready(function () {
-  const http = new HttpService();
-  indexCtrl = new IndexCtrl(http);
+  http = new HttpService();
+  indexCtrl = new IndexCtrl();
   http.centraliserErreurHttp(indexCtrl.afficherErreurHttp);
 });
 
 class IndexCtrl {
-  constructor(http) {
-    this.http = http;
+  constructor() {
     this.vue = new VueService();
     this.loadIfConnected();
+  }
+
+  afficherErreurHttp(msg) {
+    alert(msg);
   }
 
   loadIfConnected() {
@@ -19,17 +22,13 @@ class IndexCtrl {
     }
   }
 
-  afficherErreurHttp(msg) {
-    alert(msg);
-  }
-
   loadLogin() {
-    this.vue.chargerVue("login", () => new LoginCtrl(this.http));
+    this.vue.chargerVue("login", () => new LoginCtrl());
     $("title").text("GradeCloud - Login");
   }
 
   loadClasses() {
-    this.vue.chargerVue("classes", () => new AccueilCtrl());
+    this.vue.chargerVue("classes", () => new ClassesCtrl());
     $("title").text("GradeCloud - Classes");
   }
 }

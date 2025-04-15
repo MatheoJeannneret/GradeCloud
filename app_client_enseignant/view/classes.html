@@ -7,8 +7,8 @@
       <h1>GradeCloud</h1>
     </div>
     <div class="col-auto">
-      <button class="btn btn-sm btn-outline-dark mt-2" onclick="">
-        <i class="fas fa-sign-out-alt me-1"></i> Déonnexion
+      <button class="btn btn-sm btn-outline-dark mt-2" id="deconnexion">
+        <i class="fas fa-sign-out-alt me-1"></i> Déconnexion
       </button>
     </div>
   </div>
@@ -19,56 +19,101 @@
   <!-- Vue des classes -->
   <div id="classes-view">
     <h2 class="mb-4">Mes Classes</h2>
-    <div class="row row-cols-1 row-cols-md-3 g-4 mb-4">
-      <div class="col">
-        <div class="card h-100 class-card" onclick="showClass('1A')">
-          <div class="card-body">
-            <h5 class="card-title">Classe 1A</h5>
-            <p class="card-text">1ère année - Section Sciences</p>
-          </div>
-          <div class="card-footer">
-            <small class="text-muted">25 élèves</small>
-          </div>
-        </div>
-      </div>
-      <div class="col">
-        <div class="card h-100 class-card" onclick="showClass('2B')">
-          <div class="card-body">
-            <h5 class="card-title">Classe 2B</h5>
-            <p class="card-text">2ème année - Section Mathématiques</p>
-          </div>
-          <div class="card-footer">
-            <small class="text-muted">22 élèves</small>
-          </div>
-        </div>
-      </div>
-      <div class="col">
-        <div class="card h-100 class-card" onclick="showClass('3C')">
-          <div class="card-body">
-            <h5 class="card-title">Classe 3C</h5>
-            <p class="card-text">3ème année - Section Langues</p>
-          </div>
-          <div class="card-footer">
-            <small class="text-muted">20 élèves</small>
-          </div>
-        </div>
-      </div>
-    </div>
+    <div
+      class="row row-cols-1 row-cols-md-3 g-4 mb-4"
+      id="classes-container"
+    ></div>
   </div>
 
   <!-- Vue d'une classe avec calendrier et examens -->
   <div id="class-view" style="display: none">
     <div class="d-flex justify-content-between align-items-center mb-4">
       <div>
-        <button class="btn btn-outline-secondary" onclick="backToClasses()">
+        <button class="btn btn-outline-secondary" id="backToClasses">
           <i class="fas fa-arrow-left me-1"></i> Retour aux classes
         </button>
       </div>
       <h2 id="class-title">Classe</h2>
       <div>
-        <button class="btn btn-success" onclick="addExam()">
+        <button
+          type="button"
+          class="btn btn-primary"
+          data-bs-toggle="modal"
+          data-bs-target="#exampleModal"
+          data-bs-whatever="@mdo"
+        >
           <i class="fas fa-plus me-1"></i> Nouvel Examen
         </button>
+        <div
+          class="modal fade"
+          id="exampleModal"
+          tabindex="-1"
+          aria-labelledby="exampleModalLabel"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">
+                  Ajouter un examen
+                </h5>
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                ></button>
+              </div>
+              <div class="modal-body">
+                <form>
+                  <div class="mb-3">
+                    <label for="nom" class="col-form-label">Nom:</label>
+                    <input type="text" class="form-control" id="nom" />
+                  </div>
+                  <div class="mb-3">
+                    <label for="description" class="col-form-label"
+                      >Description:</label
+                    >
+                    <textarea class="description" id="message-text"></textarea>
+                  </div>
+                  <div class="mb-3">
+                    <label for="date" class="col-form-label">Date:</label>
+                    <input
+                      type="datetime-local"
+                      class="date"
+                      name="date"
+                      value="2025-04-14T10:00"
+                      min="2020-06-07T00:00"
+                      max="2040-06-14T00:00"
+                    />
+                  </div>
+                  <div class="mb-3">
+                    <label for="branches-select" class="col-form-label"
+                      >Branche:</label
+                    >
+                    <select
+                      id="branches-select"
+                      class="branches-select"
+                      name="branche"
+                    ></select>
+                  </div>
+                </form>
+              </div>
+              <div class="modal-footer">
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  data-bs-dismiss="modal"
+                >
+                  Close
+                </button>
+                <button type="button" class="btn btn-primary" id="createExamen">
+                  créer l'examen
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 
