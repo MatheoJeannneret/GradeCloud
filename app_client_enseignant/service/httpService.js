@@ -108,7 +108,7 @@ class HttpService {
         nom: nom,
         description: description,
         date: date,
-        branchId: branchId,
+        brancheId: branchId,
         classeId: classeId,
       },
       xhrFields: {

@@ -74,13 +74,14 @@
                     <label for="description" class="col-form-label"
                       >Description:</label
                     >
-                    <textarea class="description" id="message-text"></textarea>
+                    <textarea class="description" id="description"></textarea>
                   </div>
                   <div class="mb-3">
                     <label for="date" class="col-form-label">Date:</label>
                     <input
                       type="datetime-local"
                       class="date"
+                      id="date"
                       name="date"
                       value="2025-04-14T10:00"
                       min="2020-06-07T00:00"
@@ -121,84 +122,33 @@
     <div class="card mb-4">
       <div class="card-header bg-light">
         <div class="d-flex justify-content-between align-items-center">
-          <button class="btn btn-sm btn-outline-secondary" id="prev-month">
-            <i class="fas fa-chevron-left"></i>
-          </button>
-          <h5 class="mb-0" id="calendar-title">Avril 2025</h5>
-          <button class="btn btn-sm btn-outline-secondary" id="next-month">
-            <i class="fas fa-chevron-right"></i>
-          </button>
+          <h5 class="mb-0">Calendrier des Evaluations</h5>
         </div>
       </div>
       <div class="card-body">
-        <div class="calendar-container">
-          <div class="calendar-header">
-            <div>Lun</div>
-            <div>Mar</div>
-            <div>Mer</div>
-            <div>Jeu</div>
-            <div>Ven</div>
-            <div>Sam</div>
-            <div>Dim</div>
-          </div>
-          <div id="calendar-grid" class="calendar-grid">
-            <!-- Les jours du calendrier sont générés par JavaScript -->
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Liste des examens du jour sélectionné -->
-    <div id="exams-container">
-      <h4 id="exams-date" class="mb-3">Examens du 15 Avril 2025</h4>
-      <div class="list-group">
-        <a
-          href="#"
-          class="list-group-item list-group-item-action"
-          onclick="showExamDetails('exam1')"
-        >
-          <div class="d-flex w-100 justify-content-between">
-            <h5 class="mb-1">Contrôle de Mathématiques</h5>
-            <span class="badge bg-primary rounded-pill">Mathématiques</span>
-          </div>
-          <p class="mb-1">Équations du second degré et fonctions associées</p>
-          <small>15 Avril 2025, 10:00</small>
-        </a>
-        <a
-          href="#"
-          class="list-group-item list-group-item-action"
-          onclick="showExamDetails('exam2')"
-        >
-          <div class="d-flex w-100 justify-content-between">
-            <h5 class="mb-1">Test de Vocabulaire</h5>
-            <span class="badge bg-success rounded-pill">Français</span>
-          </div>
-          <p class="mb-1">Vocabulaire chapitre 5-7</p>
-          <small>15 Avril 2025, 14:00</small>
-        </a>
+        <div id="calendar"></div>
       </div>
     </div>
   </div>
 
   <!-- Vue des détails d'un examen -->
   <div id="exam-details-view" style="display: none">
+    <!-- Barre de navigation -->
     <div class="d-flex justify-content-between align-items-center mb-4">
-      <div>
-        <button class="btn btn-outline-secondary" onclick="backToClass()">
-          <i class="fas fa-arrow-left me-1"></i> Retour à la classe
-        </button>
-      </div>
-      <h2 id="exam-title">Détails de l'examen</h2>
+      <button class="btn btn-outline-secondary" id="backToClasse">
+        <i class="fas fa-arrow-left me-1"></i> Retour à la classe
+      </button>
+
+      <h2 id="exam-title" class="m-0">Détails de l'examen</h2>
+
       <div class="btn-group">
-        <button class="btn btn-warning" onclick="editExam()">
-          <i class="fas fa-edit me-1"></i> Modifier
-        </button>
-        <button class="btn btn-danger" onclick="deleteExam()">
+        <button class="btn btn-danger" id="delete-examen">
           <i class="fas fa-trash me-1"></i> Supprimer
         </button>
       </div>
     </div>
 
+    <!-- Informations sur l'examen -->
     <div class="card mb-4">
       <div class="card-header">
         <h5 class="mb-0">Informations</h5>
@@ -207,110 +157,48 @@
         <div class="row">
           <div class="col-md-6">
             <p>
-              <strong>Nom:</strong>
-              <span id="exam-name">Contrôle de Mathématiques</span>
+              <strong>Nom :</strong>
+              <span id="exam-name"></span>
             </p>
             <p>
-              <strong>Date:</strong>
-              <span id="exam-date">15 Avril 2025</span>
+              <strong>Date :</strong>
+              <span id="exam-date"></span>
             </p>
-            <p><strong>Heure:</strong> <span id="exam-time">10:00</span></p>
+            <p><strong>Heure :</strong> <span id="exam-time"></span></p>
           </div>
           <div class="col-md-6">
             <p>
-              <strong>Matière:</strong>
-              <span id="exam-subject">Mathématiques</span>
-            </p>
-            <p>
-              <strong>Coefficient:</strong>
-              <span id="exam-coefficient">2</span>
+              <strong>Branche :</strong>
+              <span id="exam-subject"></span>
             </p>
           </div>
         </div>
-        <div class="row mt-2">
-          <div class="col-12">
-            <p><strong>Description:</strong></p>
-            <p id="exam-description">
-              Équations du second degré et fonctions associées. Les élèves
-              doivent apporter leur calculatrice.
-            </p>
-          </div>
+        <div class="mt-3">
+          <p><strong>Description :</strong></p>
+          <p id="exam-description" class="mb-0"></p>
         </div>
       </div>
     </div>
 
+    <!-- Tableau des notes -->
     <div class="card">
       <div
         class="card-header d-flex justify-content-between align-items-center"
       >
         <h5 class="mb-0">Notes des élèves</h5>
-        <button class="btn btn-primary" onclick="correctExam()">
-          <i class="fas fa-check me-1"></i> Corriger
-        </button>
+        <i class="fa-solid fa-file-pen"></i>
       </div>
       <div class="card-body">
         <div class="table-responsive">
-          <table class="table table-hover">
+          <table class="table table-hover align-middle">
             <thead>
               <tr>
-                <th>Nom</th>
-                <th>Prénom</th>
-                <th>Note</th>
-                <th>Actions</th>
+                <th scope="col">Username</th>
+                <th scope="col">Note</th>
+                <th scope="col">Action</th>
               </tr>
             </thead>
-            <tbody>
-              <tr>
-                <td>Dubois</td>
-                <td>Marie</td>
-                <td>17/20</td>
-                <td>
-                  <button class="btn btn-sm btn-outline-primary">
-                    <i class="fas fa-edit"></i>
-                  </button>
-                </td>
-              </tr>
-              <tr>
-                <td>Martin</td>
-                <td>Thomas</td>
-                <td>15/20</td>
-                <td>
-                  <button class="btn btn-sm btn-outline-primary">
-                    <i class="fas fa-edit"></i>
-                  </button>
-                </td>
-              </tr>
-              <tr>
-                <td>Petit</td>
-                <td>Julie</td>
-                <td>19/20</td>
-                <td>
-                  <button class="btn btn-sm btn-outline-primary">
-                    <i class="fas fa-edit"></i>
-                  </button>
-                </td>
-              </tr>
-              <tr>
-                <td>Leroy</td>
-                <td>Antoine</td>
-                <td>13/20</td>
-                <td>
-                  <button class="btn btn-sm btn-outline-primary">
-                    <i class="fas fa-edit"></i>
-                  </button>
-                </td>
-              </tr>
-              <tr>
-                <td>Moreau</td>
-                <td>Emma</td>
-                <td>16/20</td>
-                <td>
-                  <button class="btn btn-sm btn-outline-primary">
-                    <i class="fas fa-edit"></i>
-                  </button>
-                </td>
-              </tr>
-            </tbody>
+            <tbody id="eleves-container"></tbody>
           </table>
         </div>
       </div>
