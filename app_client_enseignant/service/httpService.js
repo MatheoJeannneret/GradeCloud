@@ -203,11 +203,8 @@ class HttpService {
   deleteExamen(examenId, successCallback) {
     $.ajax({
       type: "DELETE",
-      dataType: "json",
-      url: BASE_URL_NOTE + "/deleteexamen",
-      data: {
-        examenId: examenId,
-      },
+      dataType: "text",
+      url: BASE_URL_NOTE + "/deleteexamen?examenId=" + examenId,
       xhrFields: {
         withCredentials: true,
       },
